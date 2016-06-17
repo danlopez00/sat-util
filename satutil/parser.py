@@ -1,4 +1,3 @@
-import sys
 import argparse
 
 
@@ -10,18 +9,15 @@ class SatParser(argparse.ArgumentParser):
         self.formatter_class = argparse.ArgumentDefaultsHelpFormatter
 
         # basic options
-        self.add_argument('-v', '--verbose', action='store_true', help='Turn on verbosity')
+        self.add_argument('-v', '--verbose', type=int, help='Verbosity level (0-3)', default=1)
         # TODO - logging options
 
         # generic scene ID argument
         self.add_argument('--ids', nargs="+",
                           help="Provide full scene IDs, based on the sensor (e.g. LC81660392014196LGN00)")
 
-        self.subparsers = self.add_subparsers(help='Sat-util')
-
     def error(self, message):
         self.print_help()
-        #sys.exit()
 
     def add_search(self):
         """ Add search options """
