@@ -4,7 +4,8 @@ from satutil.parser import SatParser
 class TestParser(unittest.TestCase):
     """ Test sat-util generic parser class """
 
-    def test_noargs(self):
+    def test_basic_noargs(self):
         parser = SatParser()
-        args = parser.parse_args('')
+        with self.assertRaises(SystemExit):
+            args = parser.parse_args('')
         #self.assertTrue(args.a == 1)
