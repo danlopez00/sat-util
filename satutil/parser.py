@@ -21,7 +21,7 @@ class SatParser(argparse.ArgumentParser):
 
     def error(self, message):
         self.print_help()
-        sys.exit(2)
+        sys.exit()
 
     def add_search(self):
         """ Add search options """
