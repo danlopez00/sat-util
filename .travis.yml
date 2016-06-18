@@ -15,4 +15,4 @@ install:
 - pip install -e .
 
 script:
-- python setup.py nosetests
+- python setup.py nosetests -v -s
