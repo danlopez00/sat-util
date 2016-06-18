@@ -12,6 +12,8 @@ def main():
     #title = 'Sat-util CLI'
 
     parser = SatParser()
+    # no sarch or download defined for "nosensor"
+    parser.add_process()
     args = parser.parse_args()
     
     print args
