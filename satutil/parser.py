@@ -16,7 +16,7 @@ class SatParser(argparse.ArgumentParser):
         self.add_argument('--ids', nargs="+",
                           help="Provide full scene IDs, based on the sensor (e.g. LC81660392014196LGN00)")
 
-        self.subparsers = self.add_subparsers(dest='cmd')
+        self.subparsers = self.add_subparsers(dest='command')
 
     def error(self, message):
         self.print_help()

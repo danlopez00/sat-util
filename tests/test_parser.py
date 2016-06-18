@@ -36,24 +36,24 @@ class TestParser(unittest.TestCase):
         """ Parser with search, download, process subcommands and no args """
         for arg in ['search', 'download', 'process']:
             args = self.parse('', search=True, download=True, process=True)
-            self.assertEqual(args.cmd, None)
+            self.assertEqual(args.command, None)
             args = self.parse(arg, search=True, download=True, process=True)
-            self.assertEqual(args.cmd, arg)
+            self.assertEqual(args.command, arg)
 
     def test_search(self):
         """ Search parser """
         args = self.parse('search', search=True)
         print('args', args)
-        self.assertEqual(args.cmd, 'search')
+        self.assertEqual(args.command, 'search')
 
     def test_download(self):
         """ Download parser """
         args = self.parse('download', download=True)
         print('args', args)
-        self.assertEqual(args.cmd, 'download')
+        self.assertEqual(args.command, 'download')
 
     def test_process(self):
         """ Download parser """
         args = self.parse('process', process=True)
         print('args', args)
-        self.assertEqual(args.cmd, 'process')
+        self.assertEqual(args.command, 'process')
