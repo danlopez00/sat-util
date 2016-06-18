@@ -43,17 +43,17 @@ class TestParser(unittest.TestCase):
     def test_search(self):
         """ Search parser """
         args = self.parse('search', search=True)
-        print args
+        print('args', args)
         self.assertEqual(args.cmd, 'search')
 
     def test_download(self):
         """ Download parser """
         args = self.parse('download', download=True)
-        print args
+        print('args', args)
         self.assertEqual(args.cmd, 'download')
 
     def test_process(self):
         """ Download parser """
         args = self.parse('process', process=True)
-        print args
+        print('args', args)
         self.assertEqual(args.cmd, 'process')
