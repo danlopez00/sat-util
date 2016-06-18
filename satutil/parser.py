@@ -16,6 +16,8 @@ class SatParser(argparse.ArgumentParser):
         self.add_argument('--ids', nargs="+",
                           help="Provide full scene IDs, based on the sensor (e.g. LC81660392014196LGN00)")
 
+        self.subparsers = self.add_subparsers(dest='cmd')
+
     def error(self, message):
         self.print_help()
 
@@ -68,7 +70,7 @@ class SatParser(argparse.ArgumentParser):
         #group.add_argument('--force-unzip', help='Force unzip tar file', action='store_true')
         return group
 
-    def add_products(self, products={}):
+    def add_process(self, products={}):
         """ Add processing options """
         parser = self.subparsers.add_parser('process', help='Process data into products')
         group = parser.add_argument_group('process options')
