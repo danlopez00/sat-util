@@ -1,4 +1,5 @@
 import argparse
+import inspect
 
 
 class SatParser(argparse.ArgumentParser):
@@ -91,7 +92,9 @@ class SatParser(argparse.ArgumentParser):
 
         # products
         for p in products:
-            # TODO - determine if product accepts arguments
-            group.add_argument('--%s' % p, help=products[p].description)
+            vals = inspect.getargspec(p.process)
+            # TODO = determine additional parameters to product
+            print vals
+            group.add_argument('--%s' % p.name, help=p.description)
 
         return group

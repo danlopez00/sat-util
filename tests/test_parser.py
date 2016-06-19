@@ -1,5 +1,6 @@
 import unittest
 from satutil.parser import SatParser
+from nose.tools import raises
 
 
 class TestParser(unittest.TestCase):
@@ -16,13 +17,13 @@ class TestParser(unittest.TestCase):
         return parser.parse_args(args.split())
 
     def test_basic_noargs(self):
-        """ Casic parser with no arguments """
+        """ Basic parser with no arguments """
         args = self.parse()
         self.assertTrue(args.ids is None)
         self.assertTrue(args.verbose == 1)
 
     def test_basic_ids(self):
-        """ Casic parser with ids """
+        """ Basic parser with ids """
         args = self.parse('--ids 0')
         self.assertEqual(args.ids, ['0'])
 
@@ -32,6 +33,11 @@ class TestParser(unittest.TestCase):
             args = self.parse('-v %s' % v)
             self.assertEqual(args.verbose, v)
 
+    @raises(SystemExit)
+    def test_help(self):
+        """ Basic parser with help """
+        args = self.parse('-h')
+
     def _test_subcommands_noargs(self):
         """ Parser with search, download, process subcommands and no args """
         for arg in ['search', 'download', 'process']:
@@ -40,9 +46,9 @@ class TestParser(unittest.TestCase):
             args = self.parse(arg, search=True, download=True, process=True)
             self.assertEqual(args.command, arg)
 
-    def test_search(self):
+    def _test_search(self):
         """ Search parser """
-        args = self.parse('search -h', search=True)
+        args = self.parse('search -ids 0', search=True)
         self.assertEqual(args.command, 'search')
 
     def _test_download(self):
