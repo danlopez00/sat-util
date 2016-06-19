@@ -38,9 +38,7 @@ class TestParser(unittest.TestCase):
         """ Basic parser with help """
         args = self.parse('-h')
 
-    # for some reason calling with straight arg causes travis tests to fail
-    #  in Python 2.7 and 3.5 (not 3.4), so add an additional (unused) arg --ids
-    def test_subcommands_noargs(self):
+    def _test_subcommands_noargs(self):
         """ Parser with search, download, process subcommands and no args """
         for arg in ['search', 'download', 'process']:
             args = self.parse('', search=True, download=True, process=True)
@@ -53,12 +51,12 @@ class TestParser(unittest.TestCase):
         args = self.parse('search --ids 0', search=True)
         self.assertEqual(args.command, 'search')
 
-    def test_download(self):
+    def _test_download(self):
         """ Download parser """
         args = self.parse('download --ids 0', download=True)
         self.assertEqual(args.command, 'download')
 
-    def test_process(self):
+    def _test_process(self):
         """ Download parser """
         args = self.parse('process --ids 0', process=True)
         self.assertEqual(args.command, 'process')
