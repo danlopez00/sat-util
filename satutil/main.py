@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 from .parser import SatParser
 from .version import __version__
-#
+from satprocess.scene import Scene
+
 
 '''
     This is a generic command line program for processing geospatial raster data.
@@ -9,27 +12,21 @@ from .version import __version__
 
 
 def main():
-    #title = 'Sat-util CLI'
-
-    parser = SatParser()
+    parser = SatParser(title='sat-util')
     # no sarch or download defined for "nosensor"
     parser.add_process()
     args = parser.parse_args()
-    
-    print args
 
-    #if args.subs == 'search':
-    #    results = Search.query(**args)
-    #elif args.subs == 'download':
-    #    results = Search.query(**args)
-
-    #if args.indir is not None:
+    # currently only option
+    if args.command == 'process':
         # read scene from directory
-    #    scene = Scene.create_from_directory(args.indir)
-        # 1 - collect product arguments
-        # 2 - generate output filenames
-        # 3 - call scene.process(products)
-    #else:
-    #    for sid in args.sceneids:
-    #        fname = os.path.join(args.indir, sid)
-    #        scene = Scene(fname)
+        # path in place of scene id for now
+        for id in args.ids:
+            scene = Scene.create_from_directory(args.ids[0])
+            # process products
+            for p in scene.available_products():
+                # check if product is requested
+                if args[p]:
+                    print 'Product requestd'
+                else:
+                    print 'Product not requested'
