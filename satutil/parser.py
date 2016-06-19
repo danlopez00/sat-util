@@ -4,8 +4,9 @@ import argparse
 class SatParser(argparse.ArgumentParser):
     """ Extends argparse """
 
-    def __init__(self, **kwargs):
+    def __init__(self, title='', **kwargs):
         super(SatParser, self).__init__(**kwargs)
+        self.title = title
         self.formatter_class = argparse.ArgumentDefaultsHelpFormatter
 
         # basic options
@@ -27,22 +28,30 @@ class SatParser(argparse.ArgumentParser):
 
         group = parser.add_argument_group('search options')
 
+        group.add_argument('--save', action='store_true', default=False,
+                           help='Save query to disk with provided filename')
         group.add_argument('-l', '--limit', default=10, type=int, help='Search results limit')
+        group.add_argument('--latest', default=-1, type=int, help='return N latest images within last 365 days')
+
+        # dates
         group.add_argument('-s', '--start', help='Start Date - Most formats are accepted '
                            'e.g. Jun 12 2014 OR 06/12/2014')
         group.add_argument('-e', '--end', help='End Date - Most formats are accepted '
                            'e.g. Jun 12 2014 OR 06/12/2014')
-        group.add_argument('--latest', default=-1, type=int, help='return N latest images within last 365 days')
-        group.add_argument('-c', '--cloud', type=float, default=100.0, help='Maximum cloud percentage')
+
+        # goospatial
+        # TODO - consider replace with single location arg: check for lat/lon, then JSON, then address
         group.add_argument('--lat', type=float, help='The latitude')
         group.add_argument('--lon', type=float, help='The longitude')
         group.add_argument('--address', type=str, help='The address')
-        group.add_argument('--save', action='store_true', default=False,
-                           help='Save query to disk with provided filename')
+        group.add_argument('--geojson', type=str, help='GeoJSON polygon (EPSG:4326) for area of interest')
+
+        # other filters
+        group.add_argument('-c', '--cloud', type=float, default=100.0, help='Maximum cloud percentage')
 
         # replace with single var that is format of response?
-        group.add_argument('--json', action='store_true', help='Returns a bare JSON response')
-        group.add_argument('--geojson', action='store_true', help='Returns a geojson response')
+        #group.add_argument('--json', action='store_true', help='Returns a bare JSON response')
+        #group.add_argument('--geojson', action='store_true', help='Returns a geojson response')
         # this is sensor specific - add  to subclass
         # parser.add_argument('--gids', '--pathrow',
         #                    help='Paths and Rows in order separated by comma. Use quotes ("001").'
