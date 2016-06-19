@@ -48,7 +48,7 @@ class TestParser(unittest.TestCase):
 
     def test_search(self):
         """ Search parser """
-        args = self.parse('search --ids 0', search=True)
+        args = self.parse('search -ids 0', search=True)
         self.assertEqual(args.command, 'search')
 
     def _test_download(self):
