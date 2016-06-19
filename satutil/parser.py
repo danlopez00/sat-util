@@ -94,7 +94,7 @@ class SatParser(argparse.ArgumentParser):
         for p in products:
             vals = inspect.getargspec(p.process)
             # TODO = determine additional parameters to product
-            print vals
+            print(vals)
             group.add_argument('--%s' % p.name, help=p.description)
 
         return group
