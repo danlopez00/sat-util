@@ -18,14 +18,16 @@ class SatParser(argparse.ArgumentParser):
         self.add_argument('--ids', nargs="+",
                           help="Provide full scene IDs, based on the sensor (e.g. LC81660392014196LGN00)")
 
-        self.satsubparsers = self.add_subparsers(dest='command')
+        self.subparsers = self.add_subparsers() #dest='command')
+        self.subparsers.required = True
+        self.subparsers.dest = 'command'
 
     def error(self, message):
         self.print_help()
 
     def add_search(self):
         """ Add search options """
-        parser = self.satsubparsers.add_parser('search', help='Search metadata')
+        parser = self.subparsers.add_parser('search', help='Search metadata')
 
         group = parser.add_argument_group('search options')
 
@@ -61,7 +63,7 @@ class SatParser(argparse.ArgumentParser):
 
     def add_download(self):
         """ Add download options """
-        parser = self.satsubparsers.add_parser('download', help='Download data')
+        parser = self.subparsers.add_parser('download', help='Download data')
         group = parser.add_argument_group('download options')
 
         group.add_argument('-q', '--query', help='Filename to a saved query')
@@ -71,7 +73,7 @@ class SatParser(argparse.ArgumentParser):
         group.add_argument('-d', '--dest', help='Destination path (defaults to sat-util data path)', default=None)
 
         # data specific
-        #parser = self.satsubparsers.add_parser('download', help='Download images from Google Storage')
+        #parser = self.subparsers.add_parser('download', help='Download images from Google Storage')
         #group.add_argument('--username', help='USGS Eros account Username (only works if the account has' +
         #                           ' special inventory access). Username and password as a fallback if the image' +
         #                           'is not found on AWS S3 or Google Storage')
@@ -82,7 +84,7 @@ class SatParser(argparse.ArgumentParser):
 
     def add_process(self, products={}):
         """ Add processing options """
-        parser = self.satsubparsers.add_parser('process', help='Process data into products')
+        parser = self.subparsers.add_parser('process', help='Process data into products')
         group = parser.add_argument_group('process options')
 
         group.add_argument('-q', '--query', help='Filename to a saved query')
