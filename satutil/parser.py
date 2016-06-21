@@ -1,5 +1,4 @@
 import click
-from ssearch import Search
 
 # allow -h for help
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -33,7 +32,6 @@ def cli(home, verbose, ids):
 @click.option('-c', '--cloud', type=float, default=100.0, help='Maximum cloud percentage')
 def search(**kwargs): #start, end, latest, limit, lat, lon, address, save, cloud):
     """ Search sensor metadata for matching scenes """
-    s = Search()
     click.echo('search')
     click.echo(kwargs)
 
@@ -51,4 +49,5 @@ def download(**kwargs):
 @click.option('-q', '--query', help='Filename to a saved query')
 def process(**kwargs):
     """ Process scenes into products """
-    pass
+    click.echo('process')
+    click.echo(kwargs)

@@ -3,7 +3,7 @@
 #from ssearch import Search
 
 import click
-from satutil.parser_click import cli, search
+from satutil.parser import cli, search, download, process
 
 # collection of 
 #CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -22,4 +22,6 @@ from satutil.parser_click import cli, search
 
 # add the subcommands
 cli.add_command(search)
+cli.add_command(download)
+cli.add_command(process)
 
