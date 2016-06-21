@@ -14,6 +14,7 @@ with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
 install_requires = [x.strip() for x in all_reqs if 'git+' not in x]
 dependency_links = [x.strip().replace('git+', '') for x in all_reqs if 'git+' not in x]
 
+
 setup(
     name='satutil',
     version=__version__,
@@ -35,7 +36,11 @@ setup(
     ],
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
-    scripts=['bin/landsat8', 'bin/sentinel2'],
+    #scripts=['bin/landsat8', 'bin/sentinel2'],
+    entry_points='''
+        [console_scripts]
+        satutil=satutil.main:cli
+    ''',
     install_requires=install_requires,
     dependency_links=dependency_links,
     tests_require=['nose'],
