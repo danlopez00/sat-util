@@ -39,7 +39,6 @@ def search(**kwargs): #start, end, latest, limit, lat, lon, address, save, cloud
 @click.command()
 @click.option('-q', '--query', help='Filename to a saved query')
 @click.option('-b', '--bands', nargs="+", help='Specific bands to download')
-@click.option('-d', '--dest', help='Destination path (defaults to sat-util data path)', default=None)
 def download(**kwargs):
     """ Download image scenes """
     click.echo('download')
